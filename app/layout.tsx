@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Chrome from "@/components/layout/Chrome";
+import Footer from "@/components/layout/Footer";
 import Motion from "@/components/motion/Motion";
 import Lightbox from "@/components/motion/Lightbox";
+import SmoothScroll from "@/components/motion/SmoothScroll";
+import Grain from "@/components/motion/Grain";
 
 export const metadata: Metadata = {
   title: "ÉSBA — École Supérieure des Beaux-Arts d'Alger",
@@ -13,21 +16,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body>
+        <SmoothScroll />
+        <Grain />
         <Chrome />
         <main className="page active">{children}</main>
+        <Footer />
         <Motion />
         <Lightbox />
       </body>

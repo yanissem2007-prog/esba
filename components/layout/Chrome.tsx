@@ -1,31 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Topbar from "./Topbar";
 import Nav from "./Nav";
 import MobileMenu from "./MobileMenu";
-import Topbar from "./Topbar";
 import Loader from "./Loader";
 
 export default function Chrome() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  // Hamburger animation
   useEffect(() => {
-    const ham = document.getElementById("hamburger");
-    if (!ham) return;
-    const spans = ham.querySelectorAll("span");
-    if (menuOpen) {
-      (spans[0] as HTMLElement).style.transform = "translateY(6.5px) rotate(45deg)";
-      (spans[1] as HTMLElement).style.opacity = "0";
-      (spans[2] as HTMLElement).style.transform = "translateY(-6.5px) rotate(-45deg)";
-    } else {
-      (spans[0] as HTMLElement).style.transform = "";
-      (spans[1] as HTMLElement).style.opacity = "";
-      (spans[2] as HTMLElement).style.transform = "";
-    }
-  }, [menuOpen]);
+    setMenuOpen(false);
+  }, [pathname]);
 
-  // Scroll progress + back-to-top
   useEffect(() => {
     const onScroll = () => {
       const top = window.pageYOffset;
@@ -50,8 +39,10 @@ export default function Chrome() {
       >
         ↑
       </button>
-      <Topbar />
-      <Nav onToggleMenu={() => setMenuOpen((o) => !o)} />
+      <div className={`chrome-stack ${menuOpen ? "menu-open" : ""}`}>
+        <Topbar />
+        <Nav onToggleMenu={() => setMenuOpen((o) => !o)} menuOpen={menuOpen} />
+      </div>
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
